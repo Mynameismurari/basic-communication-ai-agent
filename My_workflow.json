@@ -1,0 +1,164 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        460,
+        -400
+      ],
+      "id": "678b7fdf-87bd-4213-a96f-5c0717326b3d",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "f04VsTX7vaqhN2rN",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        60,
+        -580
+      ],
+      "id": "78980124-58cc-4832-89a9-5134f49e1381",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "mindcraft-gpt4o",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        -400
+      ],
+      "id": "ca2b2ae2-d42f-4107-8d6b-2e4f6f92c386",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "cfef1m5yRj7DsBZ3",
+          "name": "Azure Open AI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        -580
+      ],
+      "id": "4030ae45-aca2-47a9-90bb-2b3fea5ee0bf",
+      "name": "When chat message received",
+      "webhookId": "8c9095cd-e2f6-4133-8823-c0895ab6c683"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        120,
+        -420
+      ],
+      "id": "f2dc2177-e214-44c2-8d23-9d10ff701e88",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        300,
+        -420
+      ],
+      "id": "61dd5d78-16c0-41b8-8a1c-d769af57d771",
+      "name": "Calculator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "00e8737c-d43e-47e4-b2d7-cb08dc8fc20a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "226ce37753826e151a2c7957d444cb8c96f47d8e4ea1c5a280d4b956d0678c0f"
+  },
+  "id": "MYlazgtaiUzOehVm",
+  "tags": []
+}
